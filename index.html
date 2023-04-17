@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function changecolor(color){
+            if (color == "blue"){
+                document.getElementById("umbrella").src = "assets/Blue umbrella.png";
+                document.getElementById("umbrella").alt="Blue Umbrella";
+                document.getElementById("left").style.backgroundColor = "rgba(228,245,253,255)";
+                document.getElementById("right").style.backgroundColor = "rgba(228,245,253,255)";
+                document.getElementById("bc").style.backgroundColor = "rgba(0,152,230,255)";
+            }
+            else if(color=="yellow"){
+                document.getElementById("umbrella").src = "assets/Yello umbrella.png";
+                document.getElementById("umbrella").alt="Yellow Umbrella"
+                document.getElementById("left").style.backgroundColor = "rgba(255,250,236,255)";
+                document.getElementById("right").style.backgroundColor = "rgba(255,250,236,255)";
+                document.getElementById("bc").style.backgroundColor = "rgba(255,206,58,255)";
+            }
+            else if(color=="pink"){
+                document.getElementById("umbrella").src = "assets/Pink umbrella.png";
+                document.getElementById("umbrella").alt="Pink Umbrella"
+                document.getElementById("left").style.backgroundColor = "rgba(255, 240, 245, 1)";
+                document.getElementById("right").style.backgroundColor = "rgba(255, 240, 245, 1)";
+                document.getElementById("bc").style.backgroundColor = "rgba(222,27,111,255)";
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <div class="divider">
+        <div class="left" id="left">
+            <img id="loader_icon" style="fill: white" src="assets/loader_icon.svg" alt="Loader Icon" />
+            <div class="image-container">
+                <img id="imagePreview" src="#" alt="Selected Image">
+                <img id="umbrella" src="assets\Blue umbrella.png" alt="Blue Umbrella">
+            </div>
+        </div>
+        <div class="right" id="right">
+            <div class="custom-container">
+                <div class="Heading">Custom Umbrella</div>
+                <br>
+                <div class="color-row">
+                    <div class="color-button" onclick="changecolor('pink')" style="background-color: rgba(222,27,111,255)"></div>
+                    <div class="color-button" onclick="changecolor('blue')" style="background-color: rgba(0,152,218,255)"></div>
+                    <div class="color-button" onclick="changecolor('yellow')" style="background-color: rgba(255,202,57,255)"></div>
+                </div>
+                <div>
+                    <h2 >Customize your Umbrella</h2>
+                </div>
+                <div>
+                    <p style="font-size: x-large; font-weight: 100;">
+                        Upload a logo for an instant Preview.
+                    </p>
+                </div>
+                <div>
+                    <p style="font-weight: 100; font-size: 15px; ">
+                        .png and .jpg files only.Max file size is 5MB
+                    </p>
+                </div>
+                
+                <div>
+                    <div>
+                        <button id="bc" class="select-image" onclick="selectImage()">  
+                        <img id="button_loader_icon" src="assets/uloader_icon.svg" alt="Loader Icon" />
+                        <img id="upload_icon" src="assets/upload_icon.svg" alt="upload_icon" />
+                        <Label for="select-image" id="upload-label">UPLOAD ICON</Label>
+                        <div class="close-icon" id="close-icon" onclick="removeImagePreview(event)"><?xml version="1.0" ?><svg enable-background="new 0 0 12 12" id="Слой_1" version="1.1" viewBox="0 0 12 12" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon fill="#ffffff" points="12,0.7070313 11.2929688,0 6,5.2929688 0.7070313,0 0,0.7070313 5.2929688,6 0,11.2929688   0.7070313,12 6,6.7070313 11.2929688,12 12,11.2929688 6.7070313,6 "/></svg></div>
+                        </button>
+                        <img id="imagePreview" class="image-preview" src="#" alt="Image Preview" />
+                    </div>
+                    
+                    <script>
+                        function selectImage() {
+                            const fileInput = document.createElement('input');
+                            fileInput.type = 'file';
+                            fileInput.accept = 'image/*';
+                            fileInput.onchange = function() {
+                                const file = fileInput.files[0];
+                                if (file) {
+                                const reader = new FileReader();
+                                reader.readAsDataURL(file);
+                                reader.onloadstart = function() {
+                                    document.getElementById('upload_icon').style.display = 'none';
+                                    document.getElementById('button_loader_icon').style.display = 'block';
+                                }
+                                reader.onload = function() {
+                                    const imagePreview = document.getElementById('imagePreview');
+                                    imagePreview.src = reader.result;
+                                    imagePreview.style.display = 'block';
+                                    document.getElementById('upload-label').textContent = file.name;
+                                    document.getElementById('close-icon').style.display = 'block';
+                                    document.getElementById('button_loader_icon').style.display = 'none';
+                                    document.getElementById('upload_icon').style.display = 'block';
+                                }
+                            }
+                        };
+                        fileInput.click();
+                        }
+                    
+                        function removeImagePreview() {
+                            event.stopPropagation();
+                            const imagePreview = document.getElementById('imagePreview');
+                            imagePreview.src = '';
+                            imagePreview.style.display = 'none';
+                            document.getElementById('upload-label').textContent = 'UPLOAD ICON';
+                            document.getElementById('close-icon').style.display = 'none';
+                            
+                            }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
